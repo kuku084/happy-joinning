@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A little good-luck gift 🧸💗</title>
+<meta name="theme-color" content="#ffd6e8">
+<meta name="description" content="A tiny, cozy good-luck gift for a brand new beginning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Poppins:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   THEME  — change colors / fonts here
+   ========================================================= */
+:root{
+  --pink:#ffd6e8; --pink2:#ff9ec4; --rose:#ff6fa5;
+  --lav:#e8dcff; --lav2:#b9a2f0; --blue:#d6eeff; --blue2:#8ec9f5;
+  --cream:#fff8ee; --ink:#5b4b6b; --soft:#7d6c8d; --purple:#7a5aa8;
+  --glass:rgba(255,255,255,.64);
+  --shadow:0 12px 34px rgba(185,162,240,.28);
+  --r:28px;
+  --hand:'Caveat','Segoe Script','Bradley Hand',cursive;
+  --head:'Quicksand','Poppins',system-ui,sans-serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.65;overflow-x:hidden}
+body.locked{overflow:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:
+   radial-gradient(circle at 15% 8%,#ffe3f0 0,transparent 45%),
+   radial-gradient(circle at 88% 28%,#e4d9ff 0,transparent 45%),
+   radial-gradient(circle at 25% 92%,#d3ecff 0,transparent 50%),
+   linear-gradient(180deg,#fff1f8,#f3ecff 50%,#eaf6ff)}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+h1,h2,h3{font-family:var(--head);margin:0}
+
+/* ---------- layout ---------- */
+#app{position:relative;z-index:1;padding-bottom:110px}
+.sec{padding:64px 0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+.title{font-weight:700;font-size:clamp(1.7rem,6.4vw,2.6rem);text-align:center;color:var(--purple);line-height:1.2}
+.sub{text-align:center;color:var(--soft);margin:8px auto 28px;max-width:560px;font-size:.98rem}
+.hand{font-family:var(--hand)}
+.glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.85);border-radius:var(--r);box-shadow:var(--shadow)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- buttons ---------- */
+.btn{font-family:var(--head);font-weight:700;font-size:1.02rem;border:0;cursor:pointer;color:#fff;padding:14px 26px;border-radius:999px;
+  background:linear-gradient(135deg,#ff8fbd,#c49cf5);box-shadow:0 10px 24px rgba(255,111,165,.38);transition:transform .2s,box-shadow .2s;max-width:100%}
+.btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 30px rgba(255,111,165,.45)}
+.btn:active{transform:scale(.97)}
+.btn.blue{background:linear-gradient(135deg,#8fd0f8,#c9b6f5);box-shadow:0 10px 24px rgba(142,201,245,.45)}
+.btn:disabled{opacity:.7;cursor:default;transform:none}
+
+/* ---------- fixed UI ---------- */
+.progress{position:fixed;top:0;left:0;right:0;height:5px;z-index:60;background:rgba(255,255,255,.4)}
+.progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#ff8fbd,#c49cf5,#8ec9f5);border-radius:0 6px 6px 0}
+#musicBtn{position:fixed;top:14px;right:12px;z-index:60;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;font-size:1.2rem;background:rgba(255,255,255,.8);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+#musicBtn[aria-pressed="true"]{background:linear-gradient(135deg,#ffd1e6,#e8dcff)}
+nav.dock{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;display:flex;gap:2px;padding:6px;border-radius:999px;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 26px rgba(150,120,200,.3);max-width:calc(100vw - 16px)}
+nav.dock button{width:38px;height:38px;border-radius:50%;border:0;background:transparent;font-size:1.15rem;cursor:pointer;transition:background .25s,transform .25s;flex:none}
+nav.dock button:hover{transform:scale(1.15)}
+nav.dock button.active{background:var(--pink);transform:scale(1.1)}
+@media(min-width:420px){nav.dock button{width:42px;height:42px}}
+
+/* ---------- floating things ---------- */
+.bg-hearts{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-heart{position:absolute;bottom:-40px;opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) translateX(0) rotate(0);opacity:0}10%{opacity:.55}90%{opacity:.35}100%{transform:translateY(-110vh) translateX(var(--sx)) rotate(var(--rot));opacity:0}}
+#fx{position:fixed;inset:0;z-index:9990;pointer-events:none;overflow:hidden}
+.fh{position:fixed;pointer-events:none;animation:floatUp var(--dur) ease-out forwards;will-change:transform,opacity}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--rot)) scale(1.1)}}
+.trail{position:fixed;pointer-events:none;animation:trail .9s ease-out forwards}
+@keyframes trail{0%{opacity:.9;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,calc(-50% - 36px)) scale(.4)}}
+#confetti{position:fixed;inset:0;width:100vw;height:100vh;z-index:3000;pointer-events:none;display:none}
+
+/* ---------- bears ---------- */
+.bear{display:block;width:100%;height:auto;overflow:visible}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.8s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.bounce{animation:bounce 1.5s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%,60%{transform:translateY(-16px)}85%{transform:translateY(0) scale(1.04,.96)}}
+.sway{animation:sway 3.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.dance{animation:dance 1.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes dance{0%,100%{transform:rotate(-8deg) translateY(0)}25%,75%{transform:rotate(0) translateY(-14px)}50%{transform:rotate(8deg) translateY(0)}}
+.breathe{animation:breathe 3.6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03,1.04)}}
+.wave .arm-r{animation:wave 1s ease-in-out infinite;transform-box:fill-box;transform-origin:10% 90%}
+@keyframes wave{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(18deg)}}
+.beat .heart-item{animation:beat 1.1s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.zz{font-family:var(--head);font-weight:700;fill:#9b86d9;opacity:0;animation:zz 2.6s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translate(0,10px)}30%{opacity:1}100%{opacity:0;transform:translate(10px,-20px)}}
+.pop{animation:pop .8s ease}
+@keyframes pop{0%{transform:none}30%{transform:translateY(-26px) rotate(-6deg) scale(1.07)}60%{transform:translateY(0) rotate(5deg)}100%{transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ---------- welcome ---------- */
+#welcome{position:fixed;inset:0;z-index:1500;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;overflow:auto;
+  background:linear-gradient(160deg,#ffe3f0,#ece0ff 55%,#d9efff);transition:opacity .9s ease,visibility .9s ease}
+#welcome.out{opacity:0;visibility:hidden}
+.sp{position:absolute;font-size:1.3rem;animation:twinkle 2.6s ease-in-out infinite;pointer-events:none}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.w-bear{width:min(190px,48vw);margin-bottom:6px}
+.w-title{font-family:var(--hand);font-weight:700;font-size:clamp(2.4rem,11vw,3.6rem);line-height:1.1;color:#8a5fb8}
+.w-sub{margin:6px 0 4px;color:var(--soft);max-width:340px}
+#giftSvg{width:132px;height:132px;cursor:pointer;margin:8px 0 12px;animation:giftWiggle 2.4s ease-in-out infinite;overflow:visible}
+@keyframes giftWiggle{0%,60%,100%{transform:rotate(0)}66%{transform:rotate(-6deg)}72%{transform:rotate(6deg)}78%{transform:rotate(-4deg)}84%{transform:rotate(3deg)}}
+#giftSvg .gift-lid{transform-box:fill-box;transform-origin:center;transition:transform .7s cubic-bezier(.3,1.6,.5,1)}
+#giftSvg.open{animation:none}
+#giftSvg.open .gift-lid{transform:translateY(-48px) rotate(-16deg)}
+
+/* ---------- hero ---------- */
+.hero{text-align:center}
+.kicker{font-family:var(--hand);font-size:1.7rem;color:var(--rose);margin:0}
+.hero-title{font-family:var(--hand);font-weight:700;font-size:clamp(3rem,15vw,6.4rem);line-height:1.05;margin:0 0 6px}
+.grad{background:linear-gradient(90deg,#ff6fa5,#b58cf0,#6fb9f0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hero-bear{position:relative;width:min(250px,64vw);margin:6px auto 20px}
+.badge{position:absolute;right:-34px;top:6px;background:#fff;border-radius:16px;padding:6px 12px;font-family:var(--head);font-weight:700;font-size:.78rem;color:var(--purple);box-shadow:var(--shadow);animation:floaty 3s ease-in-out infinite;transform:rotate(6deg)}
+.msg-card{max-width:640px;margin:0 auto;padding:26px 22px}
+.msg-card p{font-family:var(--hand);font-size:clamp(1.5rem,5.2vw,1.95rem);line-height:1.35;margin:0 0 16px;color:#6a4f7d}
+
+/* ---------- bear world ---------- */
+.bear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.bear-card{position:relative;border:0;color:inherit;cursor:pointer;text-align:center;padding:52px 12px 14px;border-radius:var(--r);background:var(--glass);backdrop-filter:blur(10px);box-shadow:var(--shadow);transition:box-shadow .25s,background .25s}
+.bear-card:hover{box-shadow:0 16px 40px rgba(255,111,165,.3);background:rgba(255,255,255,.85)}
+.bwrap{display:block;width:min(120px,72%);margin:0 auto}
+.cap{display:block;font-family:var(--hand);font-size:1.5rem;margin-top:4px;color:var(--purple)}
+.bubble{position:absolute;left:50%;top:10px;transform:translateX(-50%) scale(.6);opacity:0;background:#fff;border-radius:16px;padding:6px 12px;font-size:.76rem;font-weight:600;line-height:1.35;
+  box-shadow:0 6px 16px rgba(150,120,200,.25);width:max-content;max-width:90%;transition:opacity .25s,transform .25s;pointer-events:none;color:var(--purple)}
+.bubble.show{opacity:1;transform:translateX(-50%) scale(1)}
+.pair{max-width:520px;margin:34px auto 0;padding:26px 18px 24px;text-align:center}
+.pair h3{font-family:var(--hand);font-size:1.9rem;color:var(--purple);margin-bottom:6px}
+.pair-bears{position:relative;display:flex;width:min(340px,100%);margin:0 auto 18px;padding-top:62px}
+.pb{position:relative;width:50%;padding:0 8px}
+.pb .bubble{top:-4px;font-size:.74rem}
+.pgift{position:absolute;left:37%;bottom:12%;font-size:2rem;z-index:3;pointer-events:none;filter:drop-shadow(0 4px 6px rgba(0,0,0,.15))}
+.pair.given .pgift{animation:give 1.2s ease-in-out forwards}
+@keyframes give{0%{left:37%;bottom:12%}50%{left:46%;bottom:52%}100%{left:56%;bottom:12%}}
+
+/* ---------- letter ---------- */
+.env-wrap{text-align:center}
+.envelope{position:relative;width:min(300px,80vw);height:190px;border:0;background:none;cursor:pointer;display:block;margin:0 auto;animation:floaty 4s ease-in-out infinite;filter:drop-shadow(0 14px 22px rgba(255,111,165,.3))}
+.envelope.open{animation:none}
+.env-back{position:absolute;inset:0;background:#ffc2da;border-radius:14px}
+.env-front{position:absolute;inset:0;background:linear-gradient(160deg,#ffe3ee,#ffd0e3);border-radius:14px;z-index:2;clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%)}
+.env-flap{position:absolute;left:0;right:0;top:0;height:56%;background:linear-gradient(180deg,#ffb3d1,#ffc6dc);z-index:2;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:14px 14px 0 0;
+  transform-origin:top;transition:transform .8s ease}
+.envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
+.env-seal{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);z-index:3;font-size:2rem;transition:opacity .4s,transform .4s}
+.envelope.open .env-seal{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+.tap-hint{font-family:var(--hand);font-size:1.5rem;color:var(--rose);margin:14px 0 0}
+.paper{position:relative;max-width:640px;margin:0 auto;border-radius:22px;background:#fffdf7;
+  background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(185,162,240,.22) 33px 34px);
+  box-shadow:var(--shadow);max-height:0;opacity:0;overflow:hidden;padding:0 24px;margin-top:0;transition:max-height 1.6s ease,opacity .8s ease,padding .6s ease,margin .6s ease}
+.paper.open{max-height:2600px;opacity:1;padding:30px 24px 28px;margin-top:26px}
+.paper p{font-family:var(--hand);font-size:clamp(1.4rem,4.9vw,1.7rem);line-height:34px;margin:0 0 16px;color:#6a4f7d;opacity:0;transform:translateY(10px);transition:opacity .7s,transform .7s}
+.paper.open p{opacity:1;transform:none}
+.paper.open p:nth-child(1){transition-delay:.4s}.paper.open p:nth-child(2){transition-delay:.8s}.paper.open p:nth-child(3){transition-delay:1.2s}
+.paper.open p:nth-child(4){transition-delay:1.6s}.paper.open p:nth-child(5){transition-delay:2s}.paper.open p:nth-child(6){transition-delay:2.4s}
+.paper.open p:nth-child(7){transition-delay:2.8s}.paper.open p:nth-child(8){transition-delay:3.2s}
+.paper .ps{font-weight:700;color:var(--rose)}
+.tape{position:absolute;top:-10px;left:50%;width:90px;height:24px;transform:translateX(-50%) rotate(-3deg);background:rgba(255,179,209,.7);border-radius:4px}
+
+/* ---------- care ---------- */
+.care-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.care{border:0;cursor:pointer;text-align:center;padding:22px 12px;border-radius:var(--r);background:var(--glass);box-shadow:var(--shadow);color:inherit;
+  animation:floaty 5s ease-in-out infinite;animation-delay:calc(var(--i)*.5s);transition:background .3s,box-shadow .3s}
+.care:hover{box-shadow:0 14px 34px rgba(255,111,165,.3)}
+.care .em{display:block;font-size:2.4rem;line-height:1.2}
+.care b{display:block;font-family:var(--head);font-size:1.02rem;margin-top:4px}
+.care .msg{display:block;max-height:0;opacity:0;overflow:hidden;font-size:.84rem;color:var(--soft);line-height:1.5;transition:max-height .45s,opacity .45s,margin .45s}
+.care.on{background:linear-gradient(145deg,#fff,var(--c,#ffe4f0))}
+.care.on .msg{max-height:120px;opacity:1;margin-top:8px}
+.care-cta{text-align:center;margin-top:30px}
+
+/* ---------- garden ---------- */
+.sec.garden{padding:70px 0 0;overflow:hidden;position:relative;background:linear-gradient(180deg,transparent,#d6eeff 14%,#efe3ff 52%,#ffe3f0 78%,#d4f1d2)}
+.garden .wrap{position:relative;z-index:2}
+.gdeco{position:absolute;inset:0;pointer-events:none;z-index:1}
+.gstar{position:absolute;animation:twinkle 3s ease-in-out infinite}
+.petal{position:absolute;top:-30px;font-size:1.1rem;opacity:0;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.9}100%{transform:translate(var(--sx),105vh) rotate(var(--rot));opacity:0}}
+.bfly{position:absolute;left:0;width:34px;animation:fly linear infinite}
+.bfly .wl,.bfly .wr{animation:flap .45s ease-in-out infinite alternate;transform-box:fill-box}
+.bfly .wl{transform-origin:100% 50%}.bfly .wr{transform-origin:0 50%}
+@keyframes flap{from{transform:scaleX(1)}to{transform:scaleX(.25)}}
+@keyframes fly{0%{transform:translate(-12vw,40px)}25%{transform:translate(26vw,-20px)}50%{transform:translate(52vw,50px)}75%{transform:translate(78vw,-10px)}100%{transform:translate(112vw,40px)}}
+.wish-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.wish{border:0;text-align:center;cursor:pointer;color:inherit;padding:24px 18px;border-radius:var(--r);background:rgba(255,255,255,.72);backdrop-filter:blur(8px);box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s,background .3s}
+.wish:hover{transform:translateY(-5px) rotate(-1deg)}
+.wish .ic{display:block;font-size:2rem}
+.wish .tx{display:block;font-family:var(--hand);font-size:1.6rem;line-height:1.2;margin:6px 0;color:#6a4f7d}
+.wish .st{display:block;font-size:.75rem;color:var(--rose);font-weight:600;height:1.2em;opacity:0;transition:opacity .4s}
+.wish.sent{background:linear-gradient(145deg,#fff,#fff3c9);box-shadow:0 0 0 3px rgba(255,255,255,.8),0 0 28px rgba(255,214,102,.55)}
+.wish.sent .st{opacity:1}
+.floor{position:relative;display:flex;justify-content:space-around;align-items:flex-end;gap:4px;padding:56px 6px 0;margin-top:20px;z-index:2}
+.floor::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-40px;height:90px;background:#bfe8bb;border-radius:50% 50% 0 0;z-index:-1}
+.flw{width:clamp(34px,10vw,64px);cursor:pointer;background:none;border:0;padding:0;transform-origin:50% 100%;animation:sway 3.4s ease-in-out infinite;animation-delay:var(--d)}
+.flw svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* ---------- calm ---------- */
+.calm{max-width:520px;margin:0 auto;text-align:center;padding:30px 20px 28px}
+#calmBear{width:150px;margin:0 auto 6px;min-height:150px}
+#calmMsg{font-family:var(--hand);font-size:clamp(1.55rem,5.4vw,1.95rem);line-height:1.3;color:#6a4f7d;min-height:3.6em;margin:6px 0 16px;display:flex;align-items:center;justify-content:center}
+.pop-in{animation:popIn .55s cubic-bezier(.3,1.6,.5,1)}
+@keyframes popIn{0%{transform:scale(.4) rotate(-10deg);opacity:0}100%{transform:none;opacity:1}}
+
+/* ---------- gallery ---------- */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.pic{border:0;padding:10px 10px 12px;border-radius:26px;background:rgba(255,255,255,.8);box-shadow:var(--shadow);cursor:pointer;color:inherit;transition:transform .3s,box-shadow .3s}
+.pic:nth-child(odd){transform:rotate(-1.5deg)}.pic:nth-child(even){transform:rotate(1.5deg)}
+.pic:hover,.pic:focus-visible{transform:translateY(-6px) rotate(0) scale(1.03);box-shadow:0 0 0 4px rgba(255,255,255,.8),0 16px 40px rgba(255,111,165,.38)}
+.pic-art{position:relative;aspect-ratio:1;border-radius:20px;display:grid;place-items:center;overflow:hidden}
+.pic-art>svg{width:100%;height:100%}
+.pic-art>svg.bear{width:76%;height:auto}
+.pic .pc{display:block;font-family:var(--hand);font-size:1.4rem;margin-top:6px;color:var(--purple);line-height:1.15}
+.balloon{position:absolute;right:8%;top:4%;width:30%;animation:floaty 3s ease-in-out infinite}
+.steam{animation:floaty 2.4s ease-in-out infinite}
+
+/* ---------- final ---------- */
+.final{max-width:640px;margin:0 auto;text-align:center;padding:34px 22px 28px}
+.final h2{font-family:var(--hand);font-size:clamp(2.4rem,10vw,3.4rem);color:var(--rose)}
+.final p{font-family:var(--hand);font-size:clamp(1.45rem,5vw,1.8rem);line-height:1.35;color:#6a4f7d;margin:14px 0}
+.final .big{font-weight:700;color:var(--purple)}
+.waves{display:flex;justify-content:center;gap:10px;margin:18px auto 16px;max-width:360px}
+.waves>div{width:44%}
+.flip{transform:scaleX(-1)}
+footer{text-align:center;font-size:.76rem;color:var(--soft);padding:10px 18px 30px;max-width:520px;margin:0 auto}
+
+/* ---------- modal & toast ---------- */
+.modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;background:rgba(122,90,168,.34);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:18px}
+.modal.show{display:flex}
+.modal-box{position:relative;background:linear-gradient(160deg,#fff,#fff0f7);border-radius:32px;padding:30px 22px 24px;max-width:380px;width:100%;max-height:92vh;overflow:auto;text-align:center;box-shadow:0 20px 60px rgba(122,90,168,.4);animation:popIn .45s cubic-bezier(.3,1.6,.5,1)}
+.modal .x{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:var(--lav);cursor:pointer;font-size:1rem;color:var(--purple)}
+.m-bear{width:min(190px,56vw);margin:0 auto 8px}
+.m-title{font-family:var(--hand);font-size:2.2rem;color:var(--rose);line-height:1.1}
+.m-text{color:var(--soft);margin:8px 0 16px;font-size:.96rem}
+.lb{width:min(280px,70vw);aspect-ratio:1;margin:0 auto 10px;border-radius:24px;display:grid;place-items:center;overflow:hidden}
+.lb>svg{width:100%;height:100%}.lb>svg.bear{width:76%;height:auto}
+.toast{position:fixed;left:50%;bottom:84px;z-index:1800;width:min(360px,calc(100vw - 28px));transform:translate(-50%,30px);opacity:0;pointer-events:none;padding:18px 18px 14px;text-align:center;transition:opacity .5s,transform .5s}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast p{margin:0 0 10px;font-size:.92rem}
+.toast .btn{padding:9px 20px;font-size:.9rem}
+
+/* ---------- accessibility: reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .bg-hearts,.petal,.bfly,.trail{display:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+<div id="fx" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<!-- ============ WELCOME SURPRISE ============ -->
+<div id="welcome" aria-label="Welcome surprise">
+  <span class="sp" style="left:12%;top:14%">✨</span>
+  <span class="sp" style="right:14%;top:10%;animation-delay:.8s">💗</span>
+  <span class="sp" style="left:18%;bottom:16%;animation-delay:1.4s">🌷</span>
+  <span class="sp" style="right:10%;bottom:20%;animation-delay:.4s">⭐</span>
+  <div class="w-bear" id="wBear"></div>
+  <h1 class="w-title">Hey, Little Superstar! 🧸💗</h1>
+  <p class="w-sub" id="wSub">Someone made a tiny surprise just for you…</p>
+  <svg id="giftSvg" viewBox="0 0 140 140" role="img" aria-label="A gift box. Tap to open." tabindex="0">
+    <g class="gift-body">
+      <rect x="20" y="62" width="100" height="70" rx="10" fill="#ff9ec4"/>
+      <rect x="62" y="62" width="16" height="70" fill="#fff3a8"/>
+      <circle cx="40" cy="90" r="4" fill="#fff" opacity=".6"/><circle cx="96" cy="112" r="4" fill="#fff" opacity=".6"/>
+    </g>
+    <g class="gift-lid">
+      <rect x="12" y="40" width="116" height="30" rx="10" fill="#ff7fb2"/>
+      <rect x="62" y="40" width="16" height="30" fill="#ffe97a"/>
+      <path d="M70 40C48 6 20 26 52 38Z M70 40C92 6 120 26 88 38Z" fill="#ffe97a"/>
+      <circle cx="70" cy="40" r="8" fill="#ffd84d"/>
+    </g>
+  </svg>
+  <button class="btn" id="openBtn" type="button">Open Your Surprise 🎁</button>
+</div>
+
+<div id="shell" hidden>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  <button id="musicBtn" type="button" aria-pressed="false" aria-label="Turn gentle background music on" title="Gentle music (off)">🔇</button>
+  <nav class="dock" id="dock" aria-label="Sections"></nav>
+
+  <main id="app">
+
+    <!-- ============ CONGRATS ============ -->
+    <section class="sec" id="hero"><div class="wrap hero">
+      <p class="kicker reveal">a tiny good-luck gift, just for you ✨</p>
+      <h1 class="hero-title reveal"><span class="grad">SHE DID IT!</span> <span>🎉💗</span></h1>
+      <div class="hero-bear reveal" id="heroBear"><div class="badge">New job unlocked 💼✨</div></div>
+      <div class="glass msg-card reveal">
+        <p>A new journey, a new beginning, and a thousand beautiful possibilities. Congratulations on joining TCS! I'm genuinely so happy for you. Go shine, Twin!</p>
+        <button class="btn" id="celebrate" type="button">Celebrate with me 🎉</button>
+      </div>
+    </div></section>
+
+    <!-- ============ BEAR WORLD ============ -->
+    <section class="sec" id="bears"><div class="wrap">
+      <h2 class="title reveal">Teddy Bear World 🧸</h2>
+      <p class="sub reveal">A little neighbourhood of cheering bears. Tap any of them, they love attention.</p>
+      <div class="bear-grid reveal" id="bearGrid"></div>
+      <div class="pair glass reveal" id="pair">
+        <h3>Two best bears 💕</h3>
+        <div class="pair-bears" id="pairBears"></div>
+        <button class="btn blue" id="giftBtn" type="button">Pass the tiny gift 🎁</button>
+      </div>
+    </div></section>
+
+    <!-- ============ LETTER ============ -->
+    <section class="sec" id="letter"><div class="wrap">
+      <h2 class="title reveal">A Little Letter For You 💌</h2>
+      <p class="sub reveal">Written with a whole lot of care.</p>
+      <div class="env-wrap reveal">
+        <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-controls="letterPaper" aria-label="Open the envelope">
+          <span class="env-back"></span><span class="env-flap"></span><span class="env-front"></span><span class="env-seal">💗</span>
+        </button>
+        <p class="tap-hint" id="envHint">Tap the envelope to open ✨</p>
+      </div>
+      <article class="paper" id="letterPaper" aria-live="polite">
+        <span class="tape"></span>
+        <p>Hey, you! 💗</p>
+        <p>Congratulations on your new journey at TCS! I hope this new chapter brings you happiness, confidence, wonderful opportunities, and countless reasons to smile.</p>
+        <p>Remember, you don't have to know everything from day one. Take your time, learn new things, make mistakes, grow, and trust yourself. You're capable of so much more than you realize.</p>
+        <p>And please, take care of yourself, okay? Eat on time, drink enough water, sleep properly, and never let work make you forget your own happiness.</p>
+        <p>Even on difficult days, be gentle with yourself. You deserve the same kindness and encouragement that you give to others.</p>
+        <p>I'm wishing you success, beautiful experiences, supportive colleagues, and a career that makes you proud.</p>
+        <p>Go shine in your own beautiful way, little superstar. All the very best for your TCS journey! 🧸🌷</p>
+        <p class="ps">P.S. Don't forget to smile. Someone is wishing you the very best! 💗<span id="fromLine"></span></p>
+      </article>
+    </div></section>
+
+    <!-- ============ TAKE CARE ============ -->
+    <section class="sec" id="care"><div class="wrap">
+      <h2 class="title reveal">Tiny Reminders 🌷</h2>
+      <p class="sub reveal">Tap each card. They're small, but they matter a lot.</p>
+      <div class="care-grid reveal" id="careGrid"></div>
+      <div class="care-cta reveal"><button class="btn" id="promiseBtn" type="button">Okay, I'll Take Care of Myself! 🥹</button></div>
+    </div></section>
+
+    <!-- ============ GARDEN ============ -->
+    <section class="sec garden" id="garden">
+      <div class="gdeco" id="gdeco" aria-hidden="true"></div>
+      <div class="wrap">
+        <h2 class="title reveal">Your Good-Luck Garden 🌸</h2>
+        <p class="sub reveal">Every flower here grew from a wish. Tap a card to send it to you.</p>
+        <div class="wish-grid reveal" id="wishGrid"></div>
+        <div class="floor reveal" id="floor" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ============ CALM ============ -->
+    <section class="sec" id="calm"><div class="wrap">
+      <div class="calm glass reveal">
+        <h2 class="title" style="font-size:clamp(1.5rem,5.5vw,2.1rem)">Need a little pep talk? ☁️</h2>
+        <div id="calmBear" aria-hidden="true"></div>
+        <p id="calmMsg" aria-live="polite">Press the button whenever things feel heavy.</p>
+        <button class="btn" id="calmBtn" type="button">Feeling a Little Stressed? Click Here 💗</button>
+      </div>
+    </div></section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="sec" id="gallery"><div class="wrap">
+      <h2 class="title reveal">Pastel Memory Box 🖼️</h2>
+      <p class="sub reveal">A little collection of soft, happy things. Tap one to look closer.</p>
+      <div class="gal reveal" id="galGrid"></div>
+    </div></section>
+
+    <!-- ============ FINAL ============ -->
+    <section class="sec" id="final"><div class="wrap">
+      <div class="final glass reveal">
+        <h2>One Last Thing... 💌</h2>
+        <p>No matter how busy life gets, remember to look after yourself, celebrate your little victories, and never stop believing in yourself.</p>
+        <p class="big">This is your new beginning. Make it beautiful.</p>
+        <p>All the very best, Twin! 🧸💗🌷</p>
+        <div class="waves" id="waves"></div>
+        <button class="btn" id="hugBtn" type="button">Sending You a Big Teddy Hug! 🧸</button>
+      </div>
+      <footer>Made with 💗 as a personal good-luck gift. This is not an official website and is not affiliated with or endorsed by Tata Consultancy Services.</footer>
+    </div></section>
+
+  </main>
+</div>
+
+<!-- generic modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Message">
+  <div class="modal-box">
+    <button class="x" id="mClose" type="button" aria-label="Close">✕</button>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<!-- surprise toast -->
+<div class="toast glass" id="toast" role="status">
+  <p>🧸 Psst… you've been exploring for a while. Here's a little secret: you're going to be wonderful at this. Someone is really proud of you. 💗</p>
+  <button class="btn" id="toastBtn" type="button">Aww 🥹</button>
+</div>
+
+<script>
+/* =========================================================
+   EASY CUSTOMISATION
+   ========================================================= */
+const CONFIG = {
+  herName: "",               // e.g. "Priya"  (shows on the welcome screen)
+  fromName: "",              // e.g. "Rahul"  (adds a signature under the P.S.)
+  surpriseAfterSeconds: 45   // time before the little surprise message appears
+};
+
+(() => {
+'use strict';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const pick = a => a[Math.random() * a.length | 0];
+const rand = (a, b) => a + Math.random() * (b - a);
+
+/* =========================================================
+   TEDDY BEAR GENERATOR (inline SVG)
+   options: fur, item, outfit, pose, eyes, hat, cls, deco
+   ========================================================= */
+const FUR = {
+  brown:['#d9a77a','#f5dcc0'], pink:['#f6b6d0','#ffe3ee'], lav:['#cdb8f2','#eee5ff'],
+  cream:['#f1d9b5','#fff3df'], blue:['#b5dcf6','#e6f5ff'], white:['#ffffff','#ffeef5']
+};
+const HEART = 'M100 190 C58 160 62 124 86 124 C94 124 100 130 100 136 C100 130 106 124 114 124 C138 124 142 160 100 190Z';
+
+function bear(o = {}) {
+  const [f, f2] = FUR[o.fur || 'brown'];
+  const d = '#5a3e36', pk = '#ff9ec4';
+  const item = o.item || 'none', out = o.outfit || 'none';
+  const line = (a, b, c, e) => `<path d="M${a} ${b} L${c} ${e}" stroke="${f}" stroke-width="24" stroke-linecap="round" fill="none"/>`;
+  let eyes;
+  if (o.eyes === 'sleep') eyes = `<path d="M70 82q9 8 18 0M112 82q9 8 18 0" stroke="${d}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  else if (o.eyes === 'happy') eyes = `<path d="M70 86q9-11 18 0M112 86q9-11 18 0" stroke="${d}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  else eyes = `<g class="eyes"><circle cx="80" cy="82" r="6" fill="${d}"/><circle cx="120" cy="82" r="6" fill="${d}"/><circle cx="82" cy="80" r="2" fill="#fff"/><circle cx="122" cy="80" r="2" fill="#fff"/></g>`;
+
+  let s = `<svg class="bear ${o.cls || ''}" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg" ${o.deco ? 'aria-hidden="true"' : `role="img" aria-label="${o.label || 'A cute teddy bear'}"`}>`;
+  /* ears + legs */
+  s += `<circle cx="52" cy="48" r="24" fill="${f}"/><circle cx="52" cy="48" r="13" fill="${pk}" opacity=".7"/>`;
+  s += `<circle cx="148" cy="48" r="24" fill="${f}"/><circle cx="148" cy="48" r="13" fill="${pk}" opacity=".7"/>`;
+  s += `<ellipse cx="68" cy="210" rx="26" ry="16" fill="${f}"/><ellipse cx="68" cy="212" rx="14" ry="8" fill="${f2}"/>`;
+  s += `<ellipse cx="132" cy="210" rx="26" ry="16" fill="${f}"/><ellipse cx="132" cy="212" rx="14" ry="8" fill="${f2}"/>`;
+  /* body */
+  if (out === 'formal') {
+    s += `<ellipse cx="100" cy="165" rx="52" ry="50" fill="#9aa3e0"/>`;
+    s += `<path d="M82 126 L118 126 L100 172Z" fill="#fff"/><path d="M82 126 L100 172 L70 152Z M118 126 L100 172 L130 152Z" fill="#7f88d0"/>`;
+    s += `<circle cx="100" cy="190" r="3" fill="#6a72b8"/>`;
+  } else {
+    s += `<ellipse cx="100" cy="165" rx="52" ry="50" fill="${f}"/><ellipse cx="100" cy="172" rx="30" ry="32" fill="${f2}"/>`;
+  }
+  /* arms + items */
+  if (item === 'hug') {
+    s += `<g class="heart-item"><path transform="translate(100 158) scale(1.2) translate(-100 -157)" d="${HEART}" fill="#ff6fa5"/><ellipse cx="80" cy="146" rx="6" ry="4" fill="#fff" opacity=".6" transform="rotate(-30 80 146)"/></g>`;
+    s += line(58, 138, 124, 170) + line(142, 138, 76, 170);
+  } else if (['heart','laptop','gift'].includes(item)) {
+    s += line(60, 136, 84, 168) + line(140, 136, 116, 168);
+    if (item === 'heart') s += `<g class="heart-item"><path d="${HEART}" fill="#ff6fa5"/><ellipse cx="82" cy="138" rx="6" ry="4" fill="#fff" opacity=".6" transform="rotate(-30 82 138)"/></g>`;
+    if (item === 'laptop') s += `<rect x="66" y="132" width="68" height="40" rx="5" fill="#dfe6f7" stroke="#a9b4d6" stroke-width="2"/><rect x="71" y="137" width="58" height="30" rx="3" fill="#fff"/><path d="M100 162c-9-6-13-12-8-16 3-2 6 0 8 3 2-3 5-5 8-3 5 4 1 10-8 16z" fill="#ff8fbd"/><rect x="58" y="172" width="84" height="8" rx="4" fill="#c9d2ee"/>`;
+    if (item === 'gift') s += `<rect x="74" y="140" width="52" height="40" rx="6" fill="#a8d8ff"/><rect x="95" y="140" width="10" height="40" fill="#ff9ec4"/><path d="M100 140c-14-16-24-4-12 0z M100 140c14-16 24-4 12 0z" fill="#ff7fb2"/>`;
+    s += `<circle cx="84" cy="168" r="12" fill="${f}"/><circle cx="116" cy="168" r="12" fill="${f}"/>`;
+  } else {
+    s += line(62, 138, 50, 172);
+    if (item === 'flower') {
+      s += line(138, 138, 168, 158);
+      s += `<path d="M172 156 V104" stroke="#7bc47f" stroke-width="4" stroke-linecap="round"/><ellipse cx="180" cy="130" rx="9" ry="4.5" fill="#8fd18f" transform="rotate(-30 180 130)"/>`;
+      for (let i = 0; i < 5; i++) { const a = i * 2 * Math.PI / 5; s += `<circle cx="${(172 + 11 * Math.cos(a)).toFixed(1)}" cy="${(98 + 11 * Math.sin(a)).toFixed(1)}" r="9" fill="#ff9ec4"/>`; }
+      s += `<circle cx="172" cy="98" r="7" fill="#ffe66e"/><circle cx="168" cy="160" r="12" fill="${f}"/>`;
+    } else if (o.pose === 'wave') {
+      s += `<g class="arm-r">${line(140, 136, 170, 96)}</g>`;
+    } else {
+      s += line(138, 138, 150, 172);
+    }
+  }
+  /* head */
+  s += `<circle cx="100" cy="86" r="54" fill="${f}"/>`;
+  s += `<ellipse cx="100" cy="106" rx="24" ry="19" fill="${f2}"/><ellipse cx="100" cy="99" rx="8" ry="5.5" fill="${d}"/>`;
+  s += `<path d="M100 104 V108 M91 110 Q96 117 100 108 Q104 117 109 110" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+  s += `<ellipse cx="64" cy="104" rx="9" ry="6" fill="${pk}" opacity=".55"/><ellipse cx="136" cy="104" rx="9" ry="6" fill="${pk}" opacity=".55"/>`;
+  s += eyes;
+  /* hat + neck items */
+  if (o.hat === 'beanie') s += `<path d="M52 62 Q96 -4 148 58 Q100 34 52 62Z" fill="#b9a2f0"/><rect x="50" y="56" width="100" height="12" rx="6" fill="#fff"/><circle cx="148" cy="52" r="9" fill="#fff"/>`;
+  if (o.hat === 'bow') s += `<path d="M132 40 L156 28 L156 52Z M132 40 L108 28 L108 52Z" fill="#ff7fb2"/><circle cx="132" cy="40" r="6" fill="#ff5f9b"/>`;
+  if (out === 'formal') s += `<path d="M100 142 l-6 6 6 26 6-26z" fill="#ff8fb8"/>`;
+  if (out === 'bow') s += `<path d="M100 144 L78 132 L78 156Z M100 144 L122 132 L122 156Z" fill="#ff7fb2"/><circle cx="100" cy="144" r="7" fill="#ff5f9b"/>`;
+  if (out === 'scarf') s += `<path d="M64 134 Q100 160 136 134 L138 150 Q100 176 62 150Z" fill="#ff9ec4"/><path d="M120 158 l12 28 -16 3z" fill="#ff7fb2"/>`;
+  if (o.zz) s += `<text class="zz" x="150" y="40" font-size="20">z</text><text class="zz" x="166" y="22" font-size="26" style="animation-delay:.8s">Z</text><text class="zz" x="182" y="2" font-size="32" style="animation-delay:1.6s">z</text>`;
+  return s + '</svg>';
+}
+
+/* =========================================================
+   FLOATING HEARTS, CONFETTI, FX
+   ========================================================= */
+const fx = $('#fx');
+const SPARK = ['💗','💖','💕','🌸','✨','💞','🌷'];
+function burst(x, y, n = 10, set = SPARK) {
+  if (fx.childElementCount > 90) n = Math.min(n, 2);
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement('span');
+    el.className = 'fh';
+    el.textContent = pick(set);
+    const dur = rand(1.1, 2);
+    el.style.cssText = `left:${x}px;top:${y}px;font-size:${rand(14, 30) | 0}px;--dx:${rand(-90, 90) | 0}px;--dy:${-rand(90, 230) | 0}px;--rot:${rand(-40, 40) | 0}deg;--dur:${dur}s`;
+    fx.appendChild(el);
+    setTimeout(() => el.remove(), dur * 1000 + 150);
+  }
+}
+function burstAt(el, n = 10, set) {
+  const r = el.getBoundingClientRect();
+  burst(r.left + r.width / 2, r.top + r.height / 2, n, set);
+}
+function confetti(ms = 3200) {
+  if (reduce) return;
+  const c = $('#confetti'), x = c.getContext('2d');
+  const dpr = Math.min(devicePixelRatio || 1, 1.5);
+  const W = c.width = innerWidth * dpr, H = c.height = innerHeight * dpr;
+  c.style.display = 'block';
+  const cols = ['#ff8fbd','#ffd1e6','#c49cf5','#e6d9ff','#8ec9f5','#bfe3fb','#fff3a8','#ffffff'];
+  const N = innerWidth < 500 ? 110 : 170, ps = [];
+  for (let i = 0; i < N; i++) ps.push({
+    x: W / 2 + (Math.random() - .5) * W * .25, y: H * .55,
+    vx: (Math.random() - .5) * 16 * dpr, vy: (-Math.random() * 18 - 6) * dpr, g: (.3 + Math.random() * .15) * dpr,
+    s: (6 + Math.random() * 7) * dpr, r: Math.random() * 6, vr: (Math.random() - .5) * .3,
+    c: pick(cols), t: Math.random() < .25 ? 'h' : (Math.random() < .5 ? 'c' : 'r')
+  });
+  const t0 = performance.now();
+  (function frame(now) {
+    x.clearRect(0, 0, W, H);
+    let alive = 0;
+    for (const p of ps) {
+      p.vy += p.g; p.vx *= .992; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      if (p.y < H + 30) alive++;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c;
+      if (p.t === 'c') { x.beginPath(); x.arc(0, 0, p.s / 2, 0, 7); x.fill(); }
+      else if (p.t === 'h') { x.font = `${p.s * 2}px serif`; x.textAlign = 'center'; x.fillText('♥', 0, p.s / 2); }
+      else x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
+      x.restore();
+    }
+    if (now - t0 < ms && alive) requestAnimationFrame(frame);
+    else { x.clearRect(0, 0, W, H); c.style.display = 'none'; }
+  })(t0);
+}
+
+/* background floating hearts (cheap CSS animations) */
+(function () {
+  const box = $('#bgHearts'), set = ['💗','💕','🌸','✨','💖'];
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('span');
+    s.className = 'bg-heart';
+    s.textContent = pick(set);
+    s.style.cssText = `left:${rand(2, 96) | 0}%;font-size:${rand(14, 28) | 0}px;animation-duration:${rand(14, 26) | 0}s;animation-delay:${-rand(0, 20) | 0}s;--sx:${rand(-60, 60) | 0}px;--rot:${rand(-40, 40) | 0}deg`;
+    box.appendChild(s);
+  }
+})();
+
+/* cursor trail (desktop only) + tap hearts (touch) */
+if (!reduce) {
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    let last = 0;
+    addEventListener('pointermove', e => {
+      const n = performance.now();
+      if (n - last < 70 || fx.childElementCount > 40) return;
+      last = n;
+      const t = document.createElement('span');
+      t.className = 'trail'; t.textContent = pick(['💗','💕','✨']);
+      t.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;font-size:${rand(11, 17) | 0}px`;
+      fx.appendChild(t); setTimeout(() => t.remove(), 950);
+    }, { passive: true });
+  }
+  document.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'touch' && !e.target.closest('button,[role="img"],svg')) burst(e.clientX, e.clientY, 3);
+  }, { passive: true });
+}
+
+/* =========================================================
+   MODAL + TOAST
+   ========================================================= */
+const modal = $('#modal'), mBody = $('#mBody'); let lastFocus = null;
+function openModal(html) {
+  lastFocus = document.activeElement;
+  mBody.innerHTML = html;
+  modal.classList.add('show');
+  $('#mClose').focus();
+}
+function closeModal() {
+  modal.classList.remove('show'); mBody.innerHTML = '';
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+$('#mClose').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+const toast = $('#toast');
+$('#toastBtn').addEventListener('click', () => { toast.classList.remove('show'); burstAt($('#toastBtn'), 8); });
+
+/* =========================================================
+   WELCOME SCREEN
+   ========================================================= */
+$('#wBear').innerHTML = bear({ fur: 'brown', item: 'heart', outfit: 'bow', cls: 'bounce beat', label: 'A teddy bear holding a heart' });
+if (CONFIG.herName) $('#wSub').textContent = `A tiny surprise made just for you, ${CONFIG.herName}…`;
+if (CONFIG.fromName) $('#fromLine').innerHTML = `<br>— ${CONFIG.fromName.replace(/[<>&]/g, '')}`;
+let opened = false;
+function openGift() {
+  if (opened) return; opened = true;
+  const g = $('#giftSvg'); g.classList.add('open'); $('#openBtn').disabled = true;
+  const r = g.getBoundingClientRect();
+  burst(r.left + r.width / 2, r.top + r.height * .3, 16);
+  setTimeout(() => confetti(3800), 350);
+  setTimeout(() => {
+    $('#shell').hidden = false;
+    $('#welcome').classList.add('out');
+    document.body.classList.remove('locked');
+    scrollTo(0, 0);
+    onScroll();
+    setTimeout(() => burst(innerWidth / 2, innerHeight * .4, 12), 500);
+    setTimeout(() => { toast.classList.add('show'); }, CONFIG.surpriseAfterSeconds * 1000);
+  }, 1500);
+  setTimeout(() => $('#welcome').remove(), 2700);
+}
+$('#openBtn').addEventListener('click', openGift);
+$('#giftSvg').addEventListener('click', openGift);
+$('#giftSvg').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGift(); } });
+
+/* =========================================================
+   HERO
+   ========================================================= */
+$('#heroBear').insertAdjacentHTML('afterbegin', bear({ fur: 'brown', outfit: 'formal', item: 'laptop', cls: 'breathe', label: 'A teddy bear in formal clothes holding a laptop' }));
+$('#celebrate').addEventListener('click', e => { confetti(2800); burstAt(e.currentTarget, 14); });
+
+/* =========================================================
+   BEAR WORLD
+   ========================================================= */
+const BEARS = [
+  { name: 'Bouncy Bubbles', fur: 'pink', outfit: 'bow', cls: 'bounce', say: ['Boing boing! You did it! 🎉', 'Jump for joy! 💗', 'New job, new bounce! ✨'] },
+  { name: 'Waves-a-lot', fur: 'brown', outfit: 'scarf', pose: 'wave', cls: 'wave', say: ['Hiii superstar! 👋', 'Waving at your bright future! 🌟', 'Hello, new chapter! 💗'] },
+  { name: 'Disco Dot', fur: 'lav', outfit: 'bow', eyes: 'happy', cls: 'dance', say: ['Time for a happy dance! 💃', 'Work hard, dance harder! 🎶', 'Celebrating you! 🪩'] },
+  { name: 'Sleepy Sprout', fur: 'blue', hat: 'beanie', eyes: 'sleep', zz: true, cls: 'breathe', say: ['Zzz… sleep well, okay? 😴', 'Rest is important too! 🌙', 'Zzz… proud of you… zzz 💤'] },
+  { name: 'Flower Fluff', fur: 'cream', item: 'flower', outfit: 'bow', cls: 'sway', say: ['This flower is for you! 🌷', 'You make everything bloom! 🌸', 'Grow and glow! 🌼'] },
+  { name: 'Heart Hugger', fur: 'white', item: 'heart', hat: 'bow', cls: 'sway beat', say: ['Carrying lots of love for you! 💗', 'You\'re so loved! 🥹', 'Heart delivery! 💌'] }
+];
+const grid = $('#bearGrid');
+BEARS.forEach(b => {
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'bear-card';
+  btn.setAttribute('aria-label', `${b.name}, a cute teddy bear. Tap to say hi.`);
+  btn.innerHTML = `<span class="bubble"></span><span class="bwrap">${bear({ ...b, deco: true })}</span><span class="cap">${b.name}</span>`;
+  const bub = $('.bubble', btn), wrap = $('.bwrap', btn); let t;
+  btn.addEventListener('click', () => {
+    bub.textContent = pick(b.say); bub.classList.add('show');
+    clearTimeout(t); t = setTimeout(() => bub.classList.remove('show'), 2600);
+    wrap.classList.remove('pop'); void wrap.offsetWidth; wrap.classList.add('pop');
+    burstAt(wrap, 8);
+  });
+  grid.appendChild(btn);
+});
+
+/* pair of bears with the tiny gift */
+$('#pairBears').innerHTML =
+  `<div class="pb"><span class="bubble show" id="bubL">I got you something… 🤫</span>${bear({ fur: 'brown', outfit: 'scarf', pose: 'wave', cls: 'wave', deco: true })}</div>` +
+  `<div class="pgift" id="pgift" aria-hidden="true">🎁</div>` +
+  `<div class="pb"><span class="bubble show" id="bubR">For me? 👀</span>${bear({ fur: 'pink', outfit: 'bow', hat: 'bow', cls: 'sway', deco: true })}</div>`;
+let given = false;
+$('#giftBtn').addEventListener('click', e => {
+  given = !given;
+  $('#pair').classList.toggle('given', given);
+  $('#bubL').textContent = given ? 'Congrats on the new job! 🎉' : 'I got you something… 🤫';
+  $('#bubR').textContent = given ? 'Aww, thank you! 🥹💗' : 'For me? 👀';
+  e.currentTarget.textContent = given ? 'Do it again 🎁' : 'Pass the tiny gift 🎁';
+  if (given) setTimeout(() => burstAt($('#pairBears'), 14), 900);
+});
+
+/* =========================================================
+   LETTER
+   ========================================================= */
+const env = $('#envelope'), paper = $('#letterPaper');
+env.addEventListener('click', () => {
+  const open = !env.classList.contains('open');
+  env.classList.toggle('open', open);
+  paper.classList.toggle('open', open);
+  env.setAttribute('aria-expanded', open);
+  $('#envHint').textContent = open ? 'Tap again to close it 💗' : 'Tap the envelope to open ✨';
+  if (open) {
+    burstAt(env, 12);
+    setTimeout(() => paper.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }), 650);
+  }
+});
+
+/* =========================================================
+   TAKE CARE
+   ========================================================= */
+const CARE = [
+  ['🍱', 'Eat on time', 'Skipping meals won\'t make work go faster. Fuel the superstar! 🍚', '#ffe9cf'],
+  ['💧', 'Drink enough water', 'Sip, sip, hooray! Your brain loves water. 💧', '#d9efff'],
+  ['😴', 'Get proper sleep', 'Rest is part of success. The stars are waiting for you to dream. 🌙', '#e8dcff'],
+  ['🌷', 'Don\'t stress too much', 'One task at a time. You\'ve got this, truly. 🌷', '#ffe0ee'],
+  ['☁️', 'Take breaks when needed', 'A tiny cloud break can reset the whole day. ☁️', '#e3f3ff'],
+  ['☀️', 'Keep smiling and enjoy life', 'Your smile is your superpower. Keep it on! ☀️', '#fff3c9']
+];
+const cg = $('#careGrid');
+CARE.forEach(([em, t, m, c], i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'care'; b.style.setProperty('--i', i); b.style.setProperty('--c', c);
+  b.setAttribute('aria-expanded', 'false');
+  b.innerHTML = `<span class="em">${em}</span><b>${t}</b><span class="msg">${m}</span>`;
+  b.addEventListener('click', () => {
+    const on = b.classList.toggle('on');
+    b.setAttribute('aria-expanded', on);
+    if (on) burstAt(b, 9);
+  });
+  cg.appendChild(b);
+});
+$('#promiseBtn').addEventListener('click', e => {
+  openModal(`<div class="m-bear">${bear({ fur: 'pink', item: 'hug', eyes: 'happy', outfit: 'bow', cls: 'beat bounce', label: 'A teddy bear hugging a heart' })}</div>
+    <div class="m-title">Promise saved! 🥹💗</div>
+    <p class="m-text">Eat well, drink water, sleep properly, take breaks, and smile. The teddy bears have written it down in their very serious notebook. 🧸📒</p>
+    <button class="btn" type="button" id="mOk">Yay! 🌷</button>`);
+  $('#mOk').addEventListener('click', closeModal);
+  confetti(2200);
+  setTimeout(() => burst(innerWidth / 2, innerHeight / 2, 14), 250);
+});
+
+/* =========================================================
+   GARDEN
+   ========================================================= */
+const WISHES = [
+  ['🌞', 'May you always find reasons to smile'],
+  ['🌱', 'May you grow with confidence'],
+  ['🫶', 'May kind people surround you'],
+  ['🌟', 'May your hard work bring beautiful results']
+];
+const wg = $('#wishGrid');
+WISHES.forEach(([ic, tx]) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'wish'; b.setAttribute('aria-pressed', 'false');
+  b.innerHTML = `<span class="ic">${ic}</span><span class="tx">${tx}</span><span class="st">✨ wish sent to you ✨</span>`;
+  b.addEventListener('click', () => {
+    const on = b.classList.toggle('sent'); b.setAttribute('aria-pressed', on);
+    if (on) burstAt(b, 10, ['✨','🌟','🌸','💫']);
+  });
+  wg.appendChild(b);
+});
+
+const star5 = (cx, cy, r, fill = '#fff6a8') => {
+  const p = [];
+  for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r; p.push((cx + rr * Math.cos(a)).toFixed(1) + ',' + (cy + rr * Math.sin(a)).toFixed(1)); }
+  return `<polygon points="${p.join(' ')}" fill="${fill}"/>`;
+};
+const bloom = (cx, cy, r, pc, cc, n = 6) => {
+  let s = '';
+  for (let i = 0; i < n; i++) { const a = i * 2 * Math.PI / n; s += `<circle cx="${(cx + r * Math.cos(a)).toFixed(1)}" cy="${(cy + r * Math.sin(a)).toFixed(1)}" r="${(r * .8).toFixed(1)}" fill="${pc}"/>`; }
+  return s + `<circle cx="${cx}" cy="${cy}" r="${(r * .7).toFixed(1)}" fill="${cc}"/>`;
+};
+const cloud = (x, y, s = 1, fill = '#fff') => `<g transform="translate(${x} ${y}) scale(${s})" fill="${fill}"><circle cx="0" cy="0" r="18"/><circle cx="22" cy="-8" r="22"/><circle cx="46" cy="0" r="17"/><rect x="-10" y="0" width="68" height="18" rx="9"/></g>`;
+const flowerSVG = (pc, cc) => `<svg viewBox="0 0 60 120"><path d="M30 44 C28 70 32 90 30 120" stroke="#7bc47f" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="84" rx="12" ry="5" fill="#8fd18f" transform="rotate(-30 40 84)"/><ellipse cx="20" cy="98" rx="11" ry="5" fill="#8fd18f" transform="rotate(30 20 98)"/>${bloom(30, 30, 11, pc, cc, 6)}</svg>`;
+
+const floor = $('#floor');
+[['#ff9ec4','#ffe66e'],['#c9b6f5','#fff3a8'],['#8ec9f5','#fff3a8'],['#ffb3cf','#ffd84d'],['#d9c4ff','#ffe66e'],['#a8dcff','#fff3a8'],['#ff9ec4','#fff3a8']].forEach(([p, c], i) => {
+  const b = document.createElement('span');
+  b.className = 'flw'; b.style.setProperty('--d', (-i * .45) + 's');
+  b.innerHTML = flowerSVG(p, c);
+  b.style.height = 'auto';
+  floor.appendChild(b);
+});
+floor.addEventListener('click', e => { burst(e.clientX, e.clientY, 7, ['🌸','🌷','✨','🌼']); });
+
+const gd = $('#gdeco');
+const bflySVG = (a, b) => `<svg viewBox="0 0 40 30"><g class="wl"><ellipse cx="12" cy="11" rx="11" ry="9" fill="${a}"/><ellipse cx="14" cy="22" rx="7" ry="6" fill="${b}"/></g><g class="wr"><ellipse cx="28" cy="11" rx="11" ry="9" fill="${a}"/><ellipse cx="26" cy="22" rx="7" ry="6" fill="${b}"/></g><rect x="19" y="6" width="2" height="20" rx="1" fill="#6b5a7b"/></svg>`;
+for (let i = 0; i < 16; i++) { const s = document.createElement('span'); s.className = 'gstar'; s.textContent = '✦'; s.style.cssText = `left:${rand(3, 96) | 0}%;top:${rand(2, 70) | 0}%;font-size:${rand(10, 20) | 0}px;color:${pick(['#fff','#fff3a8','#ffd1e6'])};animation-delay:${-rand(0, 3).toFixed(1)}s`; gd.appendChild(s); }
+[['#ffb3cf','#c49cf5',22,'0s',15],['#8ec9f5','#ffe66e',48,'-6s',19],['#c9b6f5','#ff9ec4',72,'-11s',17]].forEach(([a, b, top, dl, dur]) => {
+  const e = document.createElement('div'); e.className = 'bfly'; e.style.cssText = `top:${top}%;animation-duration:${dur}s;animation-delay:${dl}`; e.innerHTML = bflySVG(a, b); gd.appendChild(e);
+});
+for (let i = 0; i < 12; i++) { const p = document.createElement('span'); p.className = 'petal'; p.textContent = pick(['🌸','🌸','🌷','🪷']); p.style.cssText = `left:${rand(0, 98) | 0}%;animation-duration:${rand(9, 16) | 0}s;animation-delay:${-rand(0, 14) | 0}s;--sx:${rand(-80, 80) | 0}px;--rot:${rand(120, 360) | 0}deg`; gd.appendChild(p); }
+
+/* =========================================================
+   HAPPINESS BUTTON
+   ========================================================= */
+const CALM = [
+  'You\'re doing better than you think. 💗',
+  'Breathe in… breathe out. You\'ve got this. 🌬️',
+  'It\'s okay to ask questions. Everyone started somewhere. 🌷',
+  'One small step at a time is still progress. 🐾',
+  'Mistakes just mean you\'re learning. ✨',
+  'Drink some water, relax your shoulders, and smile a little. 💧',
+  'You were chosen for a reason. Trust that. 🌟',
+  'Even superstars have slow days. Be gentle with yourself. ☁️',
+  'Take a tiny break. The work will wait for you. 🍵',
+  'You\'re not alone. Someone is cheering for you. 🧸',
+  'Be proud of how far you\'ve come. 🌈',
+  'Today\'s worries will be tomorrow\'s stories. 🌸'
+];
+const CALM_BEARS = [
+  { fur: 'pink', item: 'heart', cls: 'bounce' }, { fur: 'brown', pose: 'wave', cls: 'wave', outfit: 'scarf' },
+  { fur: 'lav', eyes: 'happy', cls: 'dance', outfit: 'bow' }, { fur: 'cream', item: 'flower', cls: 'sway' },
+  { fur: 'blue', item: 'gift', cls: 'bounce', outfit: 'bow' }, { fur: 'white', item: 'hug', eyes: 'happy', cls: 'beat sway' }
+];
+let lastMsg = -1, lastBear = -1;
+$('#calmBtn').addEventListener('click', e => {
+  let i; do { i = Math.random() * CALM.length | 0; } while (i === lastMsg); lastMsg = i;
+  let j; do { j = Math.random() * CALM_BEARS.length | 0; } while (j === lastBear); lastBear = j;
+  const cb = $('#calmBear');
+  cb.innerHTML = bear({ ...CALM_BEARS[j], deco: true });
+  cb.classList.remove('pop-in'); void cb.offsetWidth; cb.classList.add('pop-in');
+  const m = $('#calmMsg'); m.textContent = CALM[i];
+  m.classList.remove('pop-in'); void m.offsetWidth; m.classList.add('pop-in');
+  burstAt(cb, 10);
+});
+
+/* =========================================================
+   GALLERY (all pure SVG / CSS, no image links)
+   ========================================================= */
+const bg = (a, b) => `linear-gradient(145deg,${a},${b})`;
+const heartPath = 'M0 0c-9-6-13-12-8-16 3-2 6 0 8 3 2-3 5-5 8-3 5 4 1 10-8 16z';
+const GALLERY = [
+  { t: 'Little bear, big dreams', bg: bg('#ffe3f0', '#e8dcff'), html: bear({ fur: 'pink', outfit: 'bow', hat: 'bow', cls: 'sway', label: 'Pink teddy bear' }) },
+  { t: 'Bouquet of luck', bg: bg('#fff1f8', '#ffe3ee'), html: `<svg viewBox="0 0 200 200"><path d="M100 188 L72 120 L128 120Z" fill="#ffd1e6"/><path d="M72 120 L128 120 L118 132 L82 132Z" fill="#ff9ec4"/><path d="M84 120 L70 70M100 120 L100 56M116 120 L132 74" stroke="#7bc47f" stroke-width="4" stroke-linecap="round"/>${bloom(70, 62, 12, '#ff9ec4', '#fff3a8')}${bloom(100, 46, 14, '#c9b6f5', '#fff3a8')}${bloom(134, 66, 12, '#8ec9f5', '#fff3a8')}<ellipse cx="86" cy="100" rx="12" ry="5" fill="#8fd18f" transform="rotate(-35 86 100)"/><ellipse cx="116" cy="100" rx="12" ry="5" fill="#8fd18f" transform="rotate(35 116 100)"/></svg>` },
+  { t: 'Cloud nine', bg: bg('#d6eeff', '#efe3ff'), html: `<svg viewBox="0 0 200 200">${star5(40, 40, 11)}${star5(160, 56, 9, '#ffd1e6')}${star5(150, 24, 6)}${star5(30, 120, 7, '#fff')}${cloud(50, 110, 1.4)}${cloud(84, 156, .8, '#ffe3f0')}${star5(172, 130, 10)}</svg>` },
+  { t: 'Rainbow days', bg: bg('#e3f3ff', '#fff3f8'), html: `<svg viewBox="0 0 200 200" fill="none" stroke-width="11" stroke-linecap="round"><path d="M24 150A76 76 0 0 1 176 150" stroke="#ffb3cf"/><path d="M36 150A64 64 0 0 1 164 150" stroke="#ffd9a8"/><path d="M48 150A52 52 0 0 1 152 150" stroke="#fff0a8"/><path d="M60 150A40 40 0 0 1 140 150" stroke="#b5e6c0"/><path d="M72 150A28 28 0 0 1 128 150" stroke="#b5dcf6"/>${cloud(24, 154, .9).replace('<g ', '<g stroke="none" ')}${cloud(130, 154, .9).replace('<g ', '<g stroke="none" ')}</svg>` },
+  { t: 'Moonlight dreams', bg: bg('#e8dcff', '#cfe3ff'), html: `<svg viewBox="0 0 200 200"><mask id="mk1"><rect width="200" height="200" fill="#fff"/><circle cx="122" cy="84" r="44" fill="#000"/></mask><circle cx="96" cy="100" r="52" fill="#fff3b0" mask="url(#mk1)"/>${star5(150, 44, 10)}${star5(168, 120, 7, '#fff')}${star5(44, 40, 7, '#fff')}${star5(60, 164, 9, '#ffd1e6')}${star5(140, 164, 6)}</svg>` },
+  { t: 'Tulip tea party', bg: bg('#ffeef5', '#f3ecff'), html: `<svg viewBox="0 0 200 200"><path d="M60 190V108M100 190V86M140 190V114" stroke="#7bc47f" stroke-width="5" stroke-linecap="round"/><g transform="translate(60 110)"><path d="M0 0C-16-4-18-30-9-42L0-27 9-42C18-30 16-4 0 0Z" fill="#ff9ec4"/></g><g transform="translate(100 88)"><path d="M0 0C-18-4-20-34-10-48L0-30 10-48C20-34 18-4 0 0Z" fill="#c49cf5"/></g><g transform="translate(140 116)"><path d="M0 0C-16-4-18-30-9-42L0-27 9-42C18-30 16-4 0 0Z" fill="#8ec9f5"/></g><ellipse cx="78" cy="160" rx="16" ry="6" fill="#8fd18f" transform="rotate(-30 78 160)"/><ellipse cx="122" cy="166" rx="16" ry="6" fill="#8fd18f" transform="rotate(30 122 166)"/></svg>` },
+  { t: 'Balloon buddy', bg: bg('#d6eeff', '#ffe3f0'), html: bear({ fur: 'cream', item: 'none', cls: 'bounce', outfit: 'bow', pose: 'wave', label: 'Teddy bear with a balloon' }) + `<svg class="balloon" viewBox="0 0 60 120"><path d="M30 8C6 8 2 40 30 66 58 40 54 8 30 8Z" fill="#ff8fbd"/><ellipse cx="20" cy="26" rx="6" ry="9" fill="#fff" opacity=".5" transform="rotate(20 20 26)"/><path d="M30 66 L26 74 34 74Z" fill="#ff6fa5"/><path d="M30 74 C20 90 40 100 30 118" stroke="#a79bc0" stroke-width="2" fill="none"/></svg>` },
+  { t: 'Cozy little break', bg: bg('#fff3e0', '#ffe3ee'), html: `<svg viewBox="0 0 200 200"><g class="steam"><g transform="translate(86 52) scale(1.1)"><path d="${heartPath}" fill="#ff9ec4"/></g><g transform="translate(116 36) scale(.8)"><path d="${heartPath}" fill="#c49cf5"/></g></g><path d="M50 98H142V122Q142 168 96 168Q50 168 50 122Z" fill="#fff"/><path d="M142 108Q172 108 168 132Q164 152 138 150" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M50 112H142" stroke="#ffd1e6" stroke-width="7"/><ellipse cx="96" cy="176" rx="62" ry="10" fill="#f3d9ea"/><g transform="translate(96 142) scale(1.2)"><path d="${heartPath}" fill="#ff9ec4"/></g></svg>` }
+];
+const gal = $('#galGrid');
+GALLERY.forEach(p => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'pic'; b.setAttribute('aria-label', p.t + ', tap to enlarge');
+  b.innerHTML = `<span class="pic-art" style="background:${p.bg}">${p.html}</span><span class="pc">${p.t}</span>`;
+  b.addEventListener('click', () => {
+    openModal(`<div class="lb" style="background:${p.bg};position:relative">${p.html}</div><div class="m-title">${p.t}</div><p class="m-text">Little things like this are worth smiling about. 💗</p>`);
+    burstAt($('.lb'), 8);
+  });
+  gal.appendChild(b);
+});
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+$('#waves').innerHTML =
+  `<div>${bear({ fur: 'pink', outfit: 'bow', hat: 'bow', pose: 'wave', cls: 'wave', deco: true })}</div>` +
+  `<div class="flip">${bear({ fur: 'brown', outfit: 'scarf', pose: 'wave', cls: 'wave', deco: true })}</div>`;
+$('#hugBtn').addEventListener('click', e => {
+  openModal(`<div class="m-bear" style="width:min(220px,62vw)">${bear({ fur: 'brown', item: 'hug', eyes: 'happy', outfit: 'scarf', cls: 'beat bounce', label: 'A teddy bear giving a big hug' })}</div>
+    <div class="m-title">Big teddy hug delivered! 🧸💗</div>
+    <p class="m-text">Squeeze, squeeze! Now go shine, little superstar. 🌷</p>
+    <button class="btn" type="button" id="mOk">Aww, thank you 🥹</button>`);
+  $('#mOk').addEventListener('click', closeModal);
+  const cx = innerWidth / 2, cy = innerHeight / 2;
+  burst(cx, cy, 22);
+  setTimeout(() => burst(cx, cy, 18), 450);
+  setTimeout(() => burst(cx, cy, 18), 900);
+  confetti(2400);
+});
+
+/* =========================================================
+   NAV, PROGRESS, SCROLL REVEAL
+   ========================================================= */
+const SECTIONS = [['hero','🎉','Congratulations'],['bears','🧸','Bear world'],['letter','💌','Letter'],['care','🌷','Reminders'],['garden','🦋','Garden'],['calm','☁️','Pep talk'],['gallery','🖼️','Gallery'],['final','💗','Finale']];
+const dock = $('#dock');
+SECTIONS.forEach(([id, em, label]) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.textContent = em; b.dataset.id = id; b.setAttribute('aria-label', 'Go to ' + label); b.title = label;
+  b.addEventListener('click', () => document.getElementById(id).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }));
+  dock.appendChild(b);
+});
+const setActive = id => $$('button', dock).forEach(b => { const on = b.dataset.id === id; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+const secObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }), { rootMargin: '-45% 0px -50% 0px' });
+SECTIONS.forEach(([id]) => secObs.observe(document.getElementById(id)));
+const revObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } }), { threshold: .12 });
+$$('.reveal').forEach(el => revObs.observe(el));
+
+const bar = $('#bar'); let ticking = false;
+function onScroll() {
+  if (ticking) return; ticking = true;
+  requestAnimationFrame(() => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`;
+    ticking = false;
+  });
+}
+addEventListener('scroll', onScroll, { passive: true });
+
+/* =========================================================
+   OPTIONAL MUSIC (generated music-box lullaby, never autoplays)
+   ========================================================= */
+const Music = (() => {
+  let ctx, master, timer, on = false, step = 0;
+  const melody = [523.25,659.25,783.99,659.25,587.33,698.46,880,698.46,523.25,659.25,783.99,1046.5,880,783.99,659.25,587.33];
+  const bass = [130.81,174.61,196,130.81];
+  function tone(f, t, dur, v, type) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.value = f;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + .05);
+  }
+  function tick() {
+    const t = ctx.currentTime + .05;
+    tone(melody[step % melody.length], t, 1.5, .09, 'triangle');
+    if (step % 4 === 0) tone(bass[(step / 4 | 0) % bass.length], t, 2.2, .07, 'sine');
+    step++;
+  }
+  function start() {
+    if (!ctx) { const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false; ctx = new AC(); master = ctx.createGain(); master.gain.value = .5; master.connect(ctx.destination); }
+    ctx.resume(); tick(); timer = setInterval(tick, 560); on = true; return true;
+  }
+  function stop() { clearInterval(timer); timer = null; on = false; }
+  document.addEventListener('visibilitychange', () => { if (document.hidden && on) { clearInterval(timer); timer = null; } else if (!document.hidden && on && !timer) timer = setInterval(tick, 560); });
+  return { toggle() { if (on) stop(); else if (!start()) return null; return on; } };
+})();
+const mb = $('#musicBtn');
+mb.addEventListener('click', () => {
+  const r = Music.toggle();
+  if (r === null) { mb.title = 'Music is not supported on this device'; return; }
+  mb.setAttribute('aria-pressed', r);
+  mb.textContent = r ? '🎵' : '🔇';
+  mb.title = r ? 'Gentle music (on)' : 'Gentle music (off)';
+  mb.setAttribute('aria-label', r ? 'Turn gentle background music off' : 'Turn gentle background music on');
+});
+})();
+</script>
+</body>
+</html>
